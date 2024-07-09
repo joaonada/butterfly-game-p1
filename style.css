@@ -36,8 +36,9 @@
     border-radius: 1px;
     background: #cc1ccc;
     backface-visibility: hidden;
+    
   }
-
+  
   .memory-card:active {
     transform: scale(0.97);
     transition: transform .2s;
@@ -45,3 +46,7 @@
   .memory-card.flip {
     transform: rotateY(180deg);
   }
+  .front-face {
+    transform: rotateY(180deg);
+  }
+  
