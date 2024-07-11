@@ -3,6 +3,8 @@ const cards = document.querySelectorAll('.memory-card');
 let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
+let matchedPairs = 0;
+
 
 function flipCard() {
   console.log(this);
@@ -32,12 +34,13 @@ function flipCard() {
   function disableCards() {
      firstCard.removeEventListener('click', flipCard);
      secondCard.removeEventListener('click', flipCard);
-
+     
+     matchedPairs++;
     resetBoard();
+    checkForWin();
   }
   
     function unflipCards() {
-      lockBoard = true;
 
       setTimeout(() => {
         firstCard.classList.remove('flip');
@@ -51,9 +54,26 @@ function flipCard() {
 function resetBoard() {
   [hasFlippedCard, lockBoard] = [false, false];
   [firstCard, secondCard] = [null, null];
-}    
-  
-
+}  
+const totalPairs = 4;
+function checkForWin() {
+    if (matchedPairs === totalPairs) {
+        displayWinMessage();
+    }
+}
+function displayWinMessage() {
+    const messageElement = document.createElement('div');
+    messageElement.textContent = 'You win, Congrat!';
+    messageElement.style.cssText = 'font-size: 64px; color: blue; text-align: flex-start;';
+    document.body.appendChild(messageElement);
+}  
+ 
+(function shuffle() {
+  cards.forEach(card => {
+    let ramdomPos = Math.floor(Math.random() * 8);
+    card.style.order = ramdomPos;
+  });
+})();
 
 cards.forEach(card => card.addEventListener('click', flipCard)
 )
